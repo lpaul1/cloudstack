@@ -46,13 +46,12 @@ import com.cloud.network.ovs.OvsTunnelManager;
 import com.cloud.offering.NetworkOffering;
 import com.cloud.offerings.dao.NetworkOfferingServiceMapDao;
 import com.cloud.user.Account;
-import com.cloud.user.UserContext;
 import com.cloud.vm.NicProfile;
 import com.cloud.vm.ReservationContext;
 import com.cloud.vm.VirtualMachine;
 import com.cloud.vm.VirtualMachineProfile;
 
-@Component
+//@Component
 @Local(value = NetworkGuru.class)
 public class OvsGuestNetworkGuru extends GuestNetworkGuru {
 	private static final Logger s_logger = Logger
@@ -189,18 +188,13 @@ public class OvsGuestNetworkGuru extends GuestNetworkGuru {
 	}
 
 	@Override
-	public boolean trash(Network network, NetworkOffering offering, Account owner) {
-		return super.trash(network, offering, owner);
-	}
-
-	@Override
 	protected void allocateVnet(Network network, NetworkVO implemented,
 			long dcId, long physicalNetworkId, String reservationId)
 			throws InsufficientVirtualNetworkCapcityException {
 		if (network.getBroadcastUri() == null) {
 			String vnet = _dcDao.allocateVnet(dcId, physicalNetworkId,
 					network.getAccountId(), reservationId,
-					canUseSystemGuestVlan(network.getAccountId()));
+					UseSystemGuestVlans.valueIn(network.getAccountId()));
 			if (vnet == null) {
 				throw new InsufficientVirtualNetworkCapcityException(
 						"Unable to allocate vnet as a part of network "
@@ -210,7 +204,7 @@ public class OvsGuestNetworkGuru extends GuestNetworkGuru {
 			implemented
 					.setBroadcastUri(BroadcastDomainType.Vswitch.toUri(vnet));
 			ActionEventUtils.onCompletedActionEvent(
-					UserContext.current().getCallerUserId(),
+					CallContext.current().getCallingUserId(),
 					network.getAccountId(),
 					EventVO.LEVEL_INFO,
 					EventTypes.EVENT_ZONE_VLAN_ASSIGN,

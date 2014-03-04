@@ -31,7 +31,7 @@ import com.cloud.utils.component.PluggableService;
 public interface VirtualRouterElementService extends PluggableService{
     VirtualRouterProvider configure(ConfigureVirtualRouterElementCmd cmd);
 	OvsProvider configure(ConfigureOvsElementCmd cmd);
-    VirtualRouterProvider addElement(Long nspId, VirtualRouterProviderType providerType);
+    VirtualRouterProvider addElement(Long nspId, Type providerType);
     VirtualRouterProvider getCreatedElement(long id);
     List<? extends VirtualRouterProvider> searchForVirtualRouterElement(ListVirtualRouterElementsCmd cmd);
 

@@ -61,6 +61,18 @@ CREATE TABLE `cloud`.`snapshot_details` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `cloud`.`ovs_providers`;
+CREATE TABLE `cloud`.`ovs_providers` (
+  `id` bigint unsigned NOT NULL auto_increment COMMENT 'id',
+  `nsp_id` bigint unsigned NOT NULL COMMENT 'Network Service Provider ID',
+  `uuid` varchar(40),
+  `enabled` int(1) NOT NULL COMMENT 'Enabled or disabled',
+  `removed` datetime COMMENT 'date removed if not null',
+  PRIMARY KEY  (`id`),
+  CONSTRAINT `fk_ovs_providers__nsp_id` FOREIGN KEY (`nsp_id`) REFERENCES `physical_network_service_providers` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `uc_ovs_providers__uuid` UNIQUE (`uuid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE `cloud`.`vm_work_job` (
   `id` bigint unsigned UNIQUE NOT NULL,
   `step` char(32) NOT NULL COMMENT 'state',

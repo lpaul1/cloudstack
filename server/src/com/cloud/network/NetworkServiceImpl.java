@@ -2506,9 +2506,6 @@ public class NetworkServiceImpl extends ManagerBase implements NetworkService {
                     if (pNetwork.getIsolationMethods().contains("GRE"))
                         addDefaultOvsToPhysicalNetwork(pNetwork.getId());
 
-                    // add security group provider to the physical network
-                    addDefaultSecurityGroupProviderToPhysicalNetwork(pNetwork.getId());
-
                     //Add Internal Load Balancer element as a default network service provider
                     addDefaultInternalLbProviderToPhysicalNetwork(pNetwork.getId());
 
@@ -3823,11 +3820,6 @@ public class NetworkServiceImpl extends ManagerBase implements NetworkService {
             addProviderToPhysicalNetwork(physicalNetworkId, "BaremetalUserdataProvider", null, null);
         }
         return null;
-    }
-
-    private PhysicalNetworkServiceProvider addDefaultOvsToPhysicalNetwork(long physicalNetworkId) {
-        PhysicalNetworkServiceProvider nsp = addProviderToPhysicalNetwork(physicalNetworkId, Network.Provider.Ovs.getName(), null, null);
-        return nsp;
     }
 
     protected boolean isNetworkSystem(Network network) {

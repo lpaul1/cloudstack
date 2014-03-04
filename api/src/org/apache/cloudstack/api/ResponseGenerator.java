@@ -358,8 +358,6 @@ public interface ResponseGenerator {
 
 	OvsProviderResponse createOvsProviderResponse(OvsProvider result);
 	
-    LDAPConfigResponse createLDAPConfigResponse(String hostname, Integer port, Boolean useSSL, String queryFilter, String baseSearch, String dn);
-
     StorageNetworkIpRangeResponse createStorageNetworkIpRangeResponse(StorageNetworkIpRange result);
 
     RegionResponse createRegionResponse(Region region);

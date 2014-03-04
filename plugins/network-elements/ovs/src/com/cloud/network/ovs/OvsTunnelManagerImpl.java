@@ -29,7 +29,7 @@ import javax.persistence.EntityExistsException;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
-import com.cloud.configuration.dao.ConfigurationDao;
+//import com.cloud.configuration.dao.ConfigurationDao;
 
 import org.apache.cloudstack.framework.config.dao.ConfigurationDao;
 
